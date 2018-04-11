@@ -109,8 +109,8 @@ RUN ./configure
 RUN LD_LIBRARY_PATH=${LD_LIBRARY_PATH} \
     bazel build --config="opt" \
                 --config=mkl \
-                --copt="-DEIGEN_USE_VML" \
-                --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" \
+                -copt="-march=broadwell" \
+                --copt="-O3" \
                 //tensorflow/tools/pip_package:build_pip_package && \
     mkdir ${WHL_DIR} && \
     bazel-bin/tensorflow/tools/pip_package/build_pip_package ${WHL_DIR}
