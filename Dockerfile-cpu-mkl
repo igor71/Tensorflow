@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-devel
+FROM ubuntu:16.04
 
 LABEL maintainer="Igor Rabkin<igor.rabkin@xiaoyi.com>"
 
@@ -30,22 +30,22 @@ RUN apt-get update && \
     build-essential \
     curl \
     wget \
-	  git \
-	  htop \
-	  iputils-ping \
-	  rsync \
-	  zip \
-	  unzip \
-	  tree \
-	  nano \
-	  mlocate \
-	  tzdata \
-	  golang \
+    git \
+    htop \
+    iputils-ping \
+    rsync \
+    zip \
+    unzip \
+    tree \
+    nano \
+    mlocate \
+    tzdata \
+    golang \
     vim \
     emacs \
-	  pkg-config && \
-	  dpkg-reconfigure -f noninteractive tzdata && \
-	  apt-get clean && \
+    pkg-config && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 ##################################
@@ -68,6 +68,31 @@ RUN pip --no-cache-dir install --upgrade \
         pip setuptools \
 	wheel 
 
+
+#################################################
+#    Install And Update Bazel                   #
+#################################################
+
+# Running bazel inside a `docker build` command causes trouble, cf:
+#   https://github.com/bazelbuild/bazel/issues/134
+# The easiest solution is to set up a bazelrc file forcing --batch.
+RUN echo "startup --batch" >>/etc/bazel.bazelrc
+# Similarly, we need to workaround sandboxing issues:
+#   https://github.com/bazelbuild/bazel/issues/418
+RUN echo "build --spawn_strategy=standalone --genrule_strategy=standalone" \
+    >>/etc/bazel.bazelrc
+# Install the most recent bazel release.
+ENV BAZEL_VERSION 0.11.0
+WORKDIR /
+RUN mkdir /bazel && \
+    cd /bazel && \
+    curl -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36" -fSsL -O https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+    curl -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36" -fSsL -o /bazel/LICENSE.txt https://raw.githubusercontent.com/bazelbuild/bazel/master/LICENSE && \
+    chmod +x bazel-*.sh && \
+    ./bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+    cd / && \
+    rm -f /bazel/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh
+
 #######################################################
 #  Download & Build TensorFlow With CPU Support Only  #
 #######################################################
@@ -76,7 +101,8 @@ WORKDIR /
     RUN rm -rf tensorflow && \
     git clone --branch=${TF_BRANCH} --depth=1 https://github.com/tensorflow/tensorflow.git && \
     cd tensorflow && \
-    git checkout ${TF_BRANCH}
+    git checkout ${TF_BRANCH} && \
+    updatedb
 WORKDIR /tensorflow
 
 ############################################################################
