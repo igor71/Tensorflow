@@ -65,16 +65,15 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     rm get-pip.py 
     
 RUN pip --no-cache-dir install --upgrade \
-        pip setuptools
-
-#RUN pip --no-cache-dir install wheel 
+        pip setuptools \
+	wheel 
 
 #######################################################
 #  Download & Build TensorFlow With CPU Support Only  #
 #######################################################
 
 WORKDIR /
-RUN \
+    RUN rm -rf tensorflow && \
     git clone https://github.com/tensorflow/tensorflow.git && \
     git clone --branch=${TF_BRANCH} --depth=1 https://github.com/tensorflow/tensorflow.git && \
     cd tensorflow && \
