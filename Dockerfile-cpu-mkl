@@ -72,8 +72,10 @@ RUN pip --no-cache-dir install --upgrade ${WHL_DIR}/tensorflow-*.whl && \
  # Check Tensorflow Installation #
  #################################
  
-COPY cpu_tf_check.py .
-RUN python cpu_tf_check.py
+COPY cpu_tf_check.py /
+RUN /
+  cd / && \
+  python cpu_tf_check.py
     
 WORKDIR /root
 
