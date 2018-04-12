@@ -43,14 +43,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
     
 
-##################################
-#            Set args            #
-##################################
-
-ARG TF_BRANCH=r1.7
-ARG WHL_DIR=/whl
-
-
 ########################################
 #    Install Python pip & dependences  #
 ########################################
