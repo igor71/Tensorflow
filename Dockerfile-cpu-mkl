@@ -73,9 +73,8 @@ RUN pip --no-cache-dir install --upgrade ${WHL_DIR}/tensorflow-*.whl && \
  #################################
  
 COPY cpu_tf_check.py 
-RUN chmod u+x tf_check.py /
-    python cpu_tf_check.py
-
+RUN python cpu_tf_check.py
+    
 WORKDIR /root
 
 #########################################
