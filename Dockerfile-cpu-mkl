@@ -137,7 +137,7 @@ RUN ./configure
 RUN LD_LIBRARY_PATH=${LD_LIBRARY_PATH} \
     bazel build --config="opt" \
                 --config=mkl \
-                -copt="-march=broadwell" \
+                -copt="-march=native" \
                 --copt="-O3" \
                 //tensorflow/tools/pip_package:build_pip_package && \
     mkdir ${WHL_DIR} && \
