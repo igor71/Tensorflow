@@ -30,6 +30,7 @@ RUN apt-get update && \
     python-software-properties \
     software-properties-common \
     build-essential \
+    curl \
     git \
     iputils-ping \
     nano \
