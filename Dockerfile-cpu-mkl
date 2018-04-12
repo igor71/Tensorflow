@@ -40,7 +40,6 @@ RUN apt-get update && \
     unzip \
     tree \
     nano \
-    mlocate \
     tzdata \
     golang \
     vim \
@@ -49,6 +48,7 @@ RUN apt-get update && \
     dpkg-reconfigure -f noninteractive tzdata && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+    
 
 ##################################
 #            Set args            #
@@ -66,11 +66,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python get-pip.py && \
     rm get-pip.py 
     
-RUN pip --no-cache-dir install --upgrade \
-        pip setuptools \
-	wheel 
-
-
+    
 #################################################
 #    Install And Update Bazel                   #
 #################################################
