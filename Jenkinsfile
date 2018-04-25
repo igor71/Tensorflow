@@ -6,7 +6,7 @@ pipeline {
 	      sh '''
 		image_id="$(docker images -q yi/tflow:0.0)"
                        if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
-                sh 'docker build --no-cache -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
+                sh 'docker build -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
 		       fi
 		 '''
             }
@@ -30,7 +30,7 @@ pipeline {
 	       sh '''
 		image_id="$(docker images -q yi/tflow:0.0)"
                        if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
-                           sh 'docker build --no-cache -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
+                           sh 'docker build -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
 		       fi 
 		  '''   
             }
