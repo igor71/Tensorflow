@@ -11,7 +11,7 @@ pipeline {
 					'''
             }
         }
-		stage('Test The Image For Mapped Ports') { 
+		stage('Test The yi/tflow:0.0 Image') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, YI-TFLOW!!'
@@ -35,7 +35,7 @@ pipeline {
 					'''   
             }
         }
-		stage('Test The Image For Mapped Ports') { 
+		stage('Test The yi/tflow:0.1 Image') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, Jenkins_Docker'
