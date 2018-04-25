@@ -3,15 +3,15 @@ pipeline {
     stages {
         stage('Build Basic DEVEL-CPU-MKL Image') {
             steps {
-			     sh '''
-				     image_id="$(docker images -q yi/tflow:0.0)"
+	      sh '''
+		image_id="$(docker images -q yi/tflow:0.0)"
                        if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
-                           sh 'docker build --no-cache -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
-				       fi
-					'''
+                sh 'docker build --no-cache -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
+		       fi
+		 '''
             }
         }
-		stage('Test The yi/tflow:0.0 Image') { 
+		stage('Test The yi/tflow:0.0 Docker Image') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, YI-TFLOW!!'
@@ -27,15 +27,15 @@ pipeline {
         }
         stage('Build The Image & Install TENSORFLOW-CPU-MKL Package ') {
             steps {
-			     sh '''
-				     image_id="$(docker images -q yi/tflow:0.0)"
+	       sh '''
+		image_id="$(docker images -q yi/tflow:0.0)"
                        if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
                            sh 'docker build --no-cache -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
-				       fi 
-					'''   
+		       fi 
+		  '''   
             }
         }
-		stage('Test The yi/tflow:0.1 Image') { 
+		stage('Test The yi/tflow:0.1 Docker Image') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, Jenkins_Docker'
