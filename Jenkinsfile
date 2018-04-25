@@ -3,10 +3,13 @@ pipeline {
     stages {
         stage('Build Basic DEVEL-CPU-MKL Image') {
             steps {
-              sh 'docker build --no-cache -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
+			     sh image_id="$(docker images -q yi/tflow:0.0)"
+                    if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
+                           sh 'docker build --no-cache -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
+				    fi
             }
         }
-		stage('Test yi/tflow:0.0 Docker Image') { 
+		stage('Test The Image For Mapped Ports') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, YI-TFLOW!!'
@@ -22,15 +25,18 @@ pipeline {
         }
         stage('Build The Image & Install TENSORFLOW-CPU-MKL Package ') {
             steps {
-                sh 'docker build --no-cache -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
+			     sh image_id="$(docker images -q yi/tflow:0.0)"
+                    if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
+                           sh 'docker build --no-cache -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
+				    fi 
             }
         }
-		stage('Test yi/tflow:0.1 Docker Image') { 
+		stage('Test The Image For Mapped Ports') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, Jenkins_Docker'
-                    image_id="$(docker images -q yi/tflow:0.0:0.1)"
-                    if [[ "$(docker images -q yi/tflow:0.0:0.1 2> /dev/null)" == "$image_id" ]]; then
+                    image_id="$(docker images -q yi/tflow:0.1)"
+                    if [[ "$(docker images -q yi/tflow:0.1 2> /dev/null)" == "$image_id" ]]; then
                        docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
                     else
                        echo "TomCat port not listenning inside docker container, check the Dockerfile file!!!"
