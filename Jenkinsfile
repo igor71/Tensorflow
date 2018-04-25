@@ -6,7 +6,7 @@ pipeline {
               sh 'docker build --no-cache -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
             }
         }
-		stage('Test $image_id Docker Image') { 
+		stage('Test yi/tflow:0.0 Docker Image') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, YI-TFLOW!!'
@@ -25,7 +25,7 @@ pipeline {
                 sh 'docker build --no-cache -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
             }
         }
-		stage('Test $image_id Docker Image') { 
+		stage('Test yi/tflow:0.1 Docker Image') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, Jenkins_Docker'
