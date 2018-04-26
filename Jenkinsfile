@@ -4,10 +4,9 @@ pipeline {
         stage('Build Basic DEVEL-CPU-MKL Image') {
             steps {
 	      sh '''
-		image_id="$(docker images -q yi/tflow:0.0)"
-                       if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
-                sh 'docker build -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
-		       fi
+                  if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
+                     sh 'docker build -f Dockerfile.devel-cpu-mkl -t yi/tflow:0.0 .'
+		  fi
 		 '''
             }
         }
@@ -28,10 +27,9 @@ pipeline {
         stage('Build The Image & Install TENSORFLOW-CPU-MKL Package ') {
             steps {
 	       sh '''
-		image_id="$(docker images -q yi/tflow:0.0)"
-                       if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
-                           sh 'docker build -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
-		       fi 
+                    if [[ "$(docker images -q yi/tflow:0.0 2> /dev/null)" == "" ]]; then
+                        sh 'docker build -f Dockerfile.cpu-mkl -t yi/tflow:0.1 .'
+		    fi 
 		  '''   
             }
         }
