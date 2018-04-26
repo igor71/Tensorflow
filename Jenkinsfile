@@ -35,7 +35,7 @@ pipeline {
 		  '''   
             }
         }
-		stage('Test The yi/tflow:0.1 Docker Image') { 
+	stage('Test The yi/tflow:0.1 Docker Image') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, Jenkins_Docker'
