@@ -60,6 +60,16 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
 RUN pip --no-cache-dir install numpy
 
 
+#################################################
+# PID 1 - signal forwarding and zombie fighting #
+#################################################
+
+# Add Tini
+ARG TINI_VERSION=v0.16.1
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
+
 ##################################
 # Install JDK 8 (latest edition) #
 ##################################
@@ -152,3 +162,4 @@ EXPOSE 22
 ENTRYPOINT ["/tini", "--"]
 CMD ["/usr/sbin/sshd", "-D"]
 RUN ["/bin/bash"]
+
