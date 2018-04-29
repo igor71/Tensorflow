@@ -39,16 +39,6 @@ pipeline {
                    ''' 
 		    }
 		}
-     stage('Archive Artifacts') {
-         steps {
-             script {
-                 step ([$class: 'CopyArtifact',
-                 projectName: 'yi-tensorflow-cpu-mkl',
-                 filter: "/whl/tensorflow-*.whl",
-                 target: 'TensorFlow']);
-             }
-         }
-     }
     }
 	post {
             always {
