@@ -112,6 +112,15 @@ RUN echo "jenkins  ALL=(ALL)  NOPASSWD: ALL" >> etc/sudoers
 # Set full permission for jenkins folder
 RUN chmod -R 777 /home/jenkins
 
+
+################# Setting UP Environment ###################
+
+ENV CI_BUILD_PYTHON=python \
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH} \
+    PYTHON_BIN_PATH=/usr/bin/python \
+    PYTHON_LIB_PATH=/usr/local/lib/python2.7/dist-packages
+	
+############################################################
     
     
 ################ INTEL MKL SUPPORT #################
