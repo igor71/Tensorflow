@@ -42,6 +42,7 @@ RUN apt-get update && \
     mlocate \
     golang \
     vim \
+    sudo \
     emacs \
     pkg-config && \
     dpkg-reconfigure -f noninteractive tzdata && \
