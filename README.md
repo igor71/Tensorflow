@@ -17,7 +17,7 @@ Running docker containers from the above images:
 
 For yi/tflow:0.0 / 0.1:
 
-docker run -it -v /media:/media yi/tflow:<tag> /bin/bash
+docker run -it -v /media:/media yi/tflow:0.0 /bin/bash
   
 For yi/tflow:0.2:
 
