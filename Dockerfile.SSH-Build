@@ -119,8 +119,7 @@ RUN curl -fSsL -O https://bootstrap.pypa.io/get-pip.py && \
     rm get-pip.py	
  
 RUN pip --no-cache-dir install --upgrade \ 
-       pip setuptools
-        && \
+       pip setuptools && \   
     python -m ipykernel.kernelspec 
     
 RUN pip --no-cache-dir install wheel
