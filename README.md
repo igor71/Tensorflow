@@ -24,3 +24,7 @@ For yi/tflow:0.2:
 docker run -d -p 37001:22 --name tflow_build -v /media:/media yi/tflow:0.2
 
 This docker container will run in detached mode. Connect to it using ssh port 37001, user::jenkins.
+
+Check Tensorflow version:
+
+python -c 'import tensorflow as tf; print(tf.__version__)'
