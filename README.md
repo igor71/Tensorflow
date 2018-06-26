@@ -27,4 +27,4 @@ This docker container will run in detached mode. Connect to it using ssh port 37
 
 Check Tensorflow version:
 
-"""python -c 'import tensorflow as tf; print(tf.__version__)'"""
+Command for python 2.7 = {python -c 'import tensorflow as tf; print(tf.__version__)'}
