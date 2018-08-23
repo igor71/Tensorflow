@@ -1,5 +1,5 @@
 # Tensorflow
-This repo contain docker files and code for building tensorflow package form the sources
+This repo contain docker files and code for building tensorflow_cpu package form the sources
 
 ### Dockerfile.devel-cpu-mkl used for creating yi/tflow:0.0 docker image.
 
